@@ -1,14 +1,21 @@
 <template>
   <div class="header">
     <input type="text" class="todo-input" placeholder="what needs to be done" v-model="newTodo" @keyup.enter="addTodo">
-    <div v-for="(todo,index) in todos" :key="todo.id"
-    class="todo-item">
+    <div v-for="(todo,index) in todos"
+         :key="todo.id"
+         class="todo-item">
       <div class="todo-item-left">
       <div v-if="!todo.editing" @dblclick="editTodo(todo)"
            class="todo-item-label">{{todo.title}}</div>
-      <input v-else class="todo-item-edit" type="text" v-model="todo.title">
+      <input
+        v-else class="todo-item-edit"
+        type="text"
+        v-model="todo.title"
+        @blur="doneEdit(todo)"
+        @keyup.enter="doneEdit(todo)"
+      >
       <div class="remove-item" @click="removeTodo(index)">
-        <button>Delete</button>
+        <button class="delete-button">Delete</button>
       </div>
       </div>
     </div>
@@ -54,6 +61,9 @@ export default {
     editTodo (todo) {
       todo.editing = true
     },
+    doneEdit (todo) {
+      todo.editing = false
+    },
     removeTodo (index) {
       this.todos.splice(index, 1)
     }
@@ -65,7 +75,6 @@ export default {
 
 .header {
   display: block;
-  text-align: center;
 }
 
 .todo-input {
@@ -83,6 +92,10 @@ export default {
   align-items: center;
   justify-content: space-between;
 }
+  :hover {
+    color: olivedrab;
+  }
+
 .todo-item-edit {
   font-size: 24px;
   font-family: Arial sans-serif;
@@ -91,5 +104,8 @@ export default {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
+}
+.delete-button {
+  right: 0;
 }
 </style>
