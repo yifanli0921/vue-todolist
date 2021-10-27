@@ -7,7 +7,7 @@
       <div class="todo-item-left">
         <input class="completed" type="checkbox" v-model="todo.completed">
       <div v-if="!todo.editing" @dblclick="editTodo(todo)"
-           class="todo-item-label">{{todo.title}}</div>
+           class="todo-item-label" v-bind:class = "{completed : todo.completed } ">{{todo.title}}</div>
       <input
         v-else class="todo-item-edit"
         type="text"
@@ -63,7 +63,8 @@ export default {
       this.todos.push({
         id: this.idForTodo,
         title: this.newTodo,
-        completed: false
+        completed: false,
+        editing: false
       })
       this.newTodo = ''
       this.idForTodo++
