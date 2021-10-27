@@ -32,8 +32,8 @@ export default {
 }
 #app {
   color: lightcoral;
-  font-size: 24px;
   margin-top: 60px;
+  font-size: 20px;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-family: Arial,sans-serif;

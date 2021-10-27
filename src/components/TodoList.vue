@@ -22,8 +22,9 @@
       </div>
     </div>
     <div class="extra-container">
-      <div>{{remaining}} items left</div>
+      <div><strong>{{remaining}} items left</strong></div>
     </div>
+    <div><label class="remaining"><input type="checkbox" :checked="!anyRemaining"><strong>Check All</strong></label></div>
   </div>
 </template>
 
@@ -54,6 +55,9 @@ export default {
   computed: {
     remaining () {
       return this.todos.filter(todo => !todo.completed).length
+    },
+    anyRemaining () {
+      return this.remaining !== 0
     }
   },
   directives: {
@@ -119,8 +123,8 @@ export default {
   align-items: center;
   justify-content: space-between;
 }
-  :hover {
-    color: olivedrab;
+.todo-item:hover {
+    color: cornflowerblue;
   }
 
 .todo-item-edit {
@@ -136,14 +140,22 @@ export default {
   text-decoration: line-through;
   color: grey;
 }
+.remaining {
+  color: mediumturquoise;
+  font-size: 28px;
+}
 .extra-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 16px;
+  font-size: 28px;
+  color: gold;
   border-bottom: 1px solid lightgrey;
   padding-top: 14px;
   margin-bottom: 14px;
-  width: 15%
+  /*width: 50%;*/
 }
+.extra-container:hover {
+    color: cornflowerblue;
+  }
 </style>
