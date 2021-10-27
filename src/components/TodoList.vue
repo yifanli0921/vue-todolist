@@ -12,7 +12,8 @@
         type="text"
         v-model="todo.title"
         @blur="doneEdit(todo)"
-        @keyup.enter="doneEdit(todo)"
+        @keyup.esc="cancleEdit(todo)"
+        v-focus
       >
       <div class="remove-item" @click="removeTodo(index)">
         <button class="delete-button">Delete</button>
@@ -29,6 +30,7 @@ export default {
     return {
       newTodo: '',
       idForTodo: 3,
+      beforeEditCache: '',
       todos: [
         {
           'id': 1,
@@ -45,6 +47,13 @@ export default {
       ]
     }
   },
+  directives: {
+    focus: {
+      inserted: function (el) {
+        el.focus()
+      }
+    }
+  },
   methods: {
     addTodo () {
       if (this.newTodo.trim() === 0) {
@@ -59,9 +68,17 @@ export default {
       this.idForTodo++
     },
     editTodo (todo) {
+      this.beforeEditCache = todo.title
       todo.editing = true
     },
     doneEdit (todo) {
+      if (todo.title.trim() === '') {
+        todo.title = this.beforeEditCache
+      }
+      todo.editing = false
+    },
+    cancelEdit (todo) {
+      todo.title = this.beforeEditCache
       todo.editing = false
     },
     removeTodo (index) {
