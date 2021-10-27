@@ -5,6 +5,7 @@
          :key="todo.id"
          class="todo-item">
       <div class="todo-item-left">
+        <input class="completed" type="checkbox" v-model="todo.completed">
       <div v-if="!todo.editing" @dblclick="editTodo(todo)"
            class="todo-item-label">{{todo.title}}</div>
       <input
@@ -56,7 +57,7 @@ export default {
   },
   methods: {
     addTodo () {
-      if (this.newTodo.trim() === 0) {
+      if (this.newTodo.trim() === '') {
         return
       }
       this.todos.push({
@@ -122,7 +123,8 @@ export default {
   padding: 10px;
   border: 1px solid #ccc;
 }
-.delete-button {
-  right: 0;
+.completed {
+  text-decoration: line-through;
+  color: grey;
 }
 </style>
