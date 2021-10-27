@@ -33,7 +33,7 @@
         <button :class="{active: filter === 'completed'}" @click="filter = 'completed'">Completed</button>
       </div>
       <div>
-        <button v-if="showClearCompletedButton" @click="showClearCompletedButton">Clear Completed</button>
+        <button v-if="showClearCompletedButton" @click="clearCompleted">Clear Completed</button>
       </div>
 
     </div>
@@ -127,6 +127,9 @@ export default {
     },
     checkAllTodos () {
       this.todos.forEach((todo) => todo.completed = event.target.checked)
+    },
+    clearCompleted () {
+      this.todos = this.todos.filter(todo => !todo.completed)
     }
   }
 }
