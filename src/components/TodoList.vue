@@ -13,12 +13,15 @@
         type="text"
         v-model="todo.title"
         @blur="doneEdit(todo)"
-        @keyup.esc="cancleEdit(todo)"
+        @keyup.esc="cancelEdit(todo)"
         v-focus
       >
       <div class="remove-item" @click="removeTodo(index)">
         <button class="delete-button">Delete</button>
       </div>
+      </div>
+      <div class="extra-container">
+        <div>{{remaining}} items left</div>
       </div>
     </div>
   </div>
@@ -46,6 +49,11 @@ export default {
           'editing': false
         }
       ]
+    }
+  },
+  computed: {
+    remaining () {
+      return this.todos.filter(todo => !todo.completed).length
     }
   },
   directives: {
@@ -127,5 +135,14 @@ export default {
 .completed {
   text-decoration: line-through;
   color: grey;
+}
+.extra-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  border-top: 1px solid lightgrey;
+  padding-top: 14px;
+  margin-bottom: 14px;
 }
 </style>
