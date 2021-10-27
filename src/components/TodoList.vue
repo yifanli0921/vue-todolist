@@ -20,9 +20,9 @@
         <button class="delete-button">Delete</button>
       </div>
       </div>
-      <div class="extra-container">
-        <div>{{remaining}} items left</div>
-      </div>
+    </div>
+    <div class="extra-container">
+      <div>{{remaining}} items left</div>
     </div>
   </div>
 </template>
@@ -141,8 +141,9 @@ export default {
   align-items: center;
   justify-content: space-between;
   font-size: 16px;
-  border-top: 1px solid lightgrey;
+  border-bottom: 1px solid lightgrey;
   padding-top: 14px;
   margin-bottom: 14px;
+  width: 15%
 }
 </style>
