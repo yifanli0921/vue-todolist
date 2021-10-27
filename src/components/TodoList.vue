@@ -25,7 +25,17 @@
       <div><strong>{{remaining}} items left</strong></div>
     </div>
     <div><label class="remaining"><input type="checkbox" :checked="!anyRemaining" @change="checkAllTodos"><strong>Check All</strong></label></div>
+
+    <div class="extra-container">
+      <div>
+        <button :class="{active: filter = 'all'}" @click="filter = 'all'">All</button>
+        <button :class="{active: filter = 'active'}" @click="filter = 'active'">Active</button>
+        <button :class="{active: filter = 'completed'}" @click="filter = 'all'">Completed</button>
+      </div>
+
+    </div>
   </div>
+
 </template>
 
 <script>
