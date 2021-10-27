@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <input type="text" class="todo-input" placeholder="what needs to be done" v-model="newTodo" @keyup.enter="addTodo">
-    <div v-for="(todo,index) in todos"
+    <div v-for="(todo,index) in todosFiltered"
          :key="todo.id"
          class="todo-item">
       <div class="todo-item-left">
@@ -23,14 +23,17 @@
     </div>
     <div class="extra-container">
       <div><strong>{{remaining}} items left</strong></div>
-    </div>
     <div><label class="remaining"><input type="checkbox" :checked="!anyRemaining" @change="checkAllTodos"><strong>Check All</strong></label></div>
+    </div>
 
     <div class="extra-container">
       <div>
-        <button :class="{active: filter = 'all'}" @click="filter = 'all'">All</button>
-        <button :class="{active: filter = 'active'}" @click="filter = 'active'">Active</button>
-        <button :class="{active: filter = 'completed'}" @click="filter = 'all'">Completed</button>
+        <button :class="{active: filter === 'all'}" @click="filter = 'all'">All</button>
+        <button :class="{active: filter === 'active'}" @click="filter = 'active'">Active</button>
+        <button :class="{active: filter === 'completed'}" @click="filter = 'completed'">Completed</button>
+      </div>
+      <div>
+        <button v-if="showClearCompletedButton" @click="showClearCompletedButton">Clear Completed</button>
       </div>
 
     </div>
@@ -46,6 +49,7 @@ export default {
       newTodo: '',
       idForTodo: 3,
       beforeEditCache: '',
+      filter: 'all',
       todos: [
         {
           'id': 1,
@@ -68,6 +72,19 @@ export default {
     },
     anyRemaining () {
       return this.remaining !== 0
+    },
+    todosFiltered () {
+      if (this.filter === 'all') {
+        return this.todos
+      } else if (this.filter === 'active') {
+        return this.todos.filter(todo => !todo.completed)
+      } else if (this.filter === 'completed') {
+        return this.todos.filter(todo => todo.completed)
+      }
+      return this.todos
+    },
+    showClearCompletedButton () {
+
     }
   },
   directives: {
