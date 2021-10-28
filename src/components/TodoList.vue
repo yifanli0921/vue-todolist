@@ -3,7 +3,7 @@
     <h1>Welcome to the Todo List APP !</h1>
     <input type="text" class="todo-input" placeholder="what needs to be done" v-model="newTodo" @keyup.enter="addTodo">
     <todo-item v-for="(todo,index) in todosFiltered"
-         :key="todo.id" :todo="todo" :index="index">
+         :key="todo.id" :todo="todo" :index="index" @removedTodo="removeTodo">
     </todo-item>
     <div class="extra-container">
       <div><strong>{{remaining}} items left</strong></div>
